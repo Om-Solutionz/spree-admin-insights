@@ -1,3 +1,8 @@
-Spree::PromotionAction.class_eval do
-  has_one :adjustment, -> { promotion }, class_name: 'Spree::Adjustment', foreign_key: :source_id
+module Spree
+	module PromotionActionDecorator
+		def self.prepended(base)
+			base.has_one :adjustment, -> { promotion }, class_name: 'Spree::Adjustment', foreign_key: :source_id
+		end
+	end
 end
+Spree::PromotionAction.prepend(Spree::PromotionActionDecorator)
